@@ -12,27 +12,40 @@ function calc(operator) {
     //Template literals (``) are string literals allowing embedded expressions. 
     //You can use multi-line strings and string interpolation features with them.
     calculationDescription = `${currentResult} ${operator} ${userInput}`;
-    logCalculation(calculationDescription);
+    
+    let newLog = {
+        prev: currentResult,
+        input: userInput,
+        operation: '',
+        desc: calculationDescription,
+        newResult: 0
+    };
 
     switch(operator) {
         case '+': { 
             currentResult += userInput; 
+            newLog.operation = 'ADD';
             break;
         }
         case '-': { 
             currentResult -= userInput; 
+            newLog.operation = 'SUB';
             break;
         }
         case '*': { 
             currentResult *= userInput;
+            newLog.operation = 'MULT';
             break;
         }
         case '/': { 
             currentResult /= userInput;
+            newLog.operation = 'DIV';
             break;
         }
     }
     outputResult(currentResult, calculationDescription);
+    newLog.newResult = currentResult;
+    logCalculation(newLog);
 }
 
 function add() { calc('+'); }
@@ -40,9 +53,9 @@ function sub() { calc('-'); }
 function mult() { calc('*');}
 function div() { calc('/'); }
 
-function logCalculation(desc){
-    calculationLogs.push(desc);
-    logHistory(calculationLogs[calculationLogs.length - 1]);
+function logCalculation(log){
+    calculationLogs.push(log);
+    logHistory(log);
 }
 
 addBtn.addEventListener('click', add);

@@ -13,8 +13,8 @@ function outputResult(result, text) {
   currentCalculationOutput.textContent = text;
 }
 
-function logHistory(desc) {
-  let newLog = document.createElement('li');
-  newLog.innerHTML = desc
-  historyLog.appendChild(newLog);
+function logHistory(log) {
+  let logListItem = document.createElement('li');
+  logListItem.innerHTML = `${log.operation}:\t\t${log.desc} = ${log.newResult}`;
+  historyLog.appendChild(logListItem);
 }
