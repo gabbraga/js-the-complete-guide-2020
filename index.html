@@ -9,6 +9,13 @@
       href="https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap"
       rel="stylesheet"
     />
+    
+    <!-- defer tells the browser it should download the 
+      scripts right away, but not to block parsing of HTML, 
+      and to only execute the scripts after everything has been parsed -->
+    <script src="assets/scripts/vendor.js" defer></script>
+    <script src="assets/scripts/app.js" defer></script>
+
     <link rel="stylesheet" href="assets/styles/app.css" />
   </head>
   <body>
@@ -35,7 +42,6 @@
       <h2>History</h2>
       <ul id="log"></ul>
     </section>
-    <script src="assets/scripts/vendor.js"></script>
-    <script src="assets/scripts/app.js"></script>
+    
   </body>
 </html>
