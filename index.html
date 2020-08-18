@@ -12,7 +12,12 @@
     
     <!-- defer tells the browser it should download the 
       scripts right away, but not to block parsing of HTML, 
-      and to only execute the scripts after everything has been parsed -->
+      and to only execute the scripts after everything has been parsed.
+      
+      defer guarantees the order they will execute; eg. even if 
+      app.js is downloaded first, vendor.js will execute first once
+      it is downloaded
+    -->
     <script src="assets/scripts/vendor.js" defer></script>
     <script src="assets/scripts/app.js" defer></script>
 
