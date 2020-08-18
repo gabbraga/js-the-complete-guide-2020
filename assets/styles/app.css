@@ -18,9 +18,7 @@ header {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
   width: 100%;
 }
-
-#results,
-#calculator {
+section {
   margin: 2rem auto;
   width: 40rem;
   max-width: 90%;
@@ -28,9 +26,6 @@ header {
   border-radius: 10px;
   padding: 1rem;
   color: #023d6d;
-}
-
-#results {
   text-align: center;
 }
 
@@ -76,4 +71,15 @@ header {
 #calc-actions {
   margin-top: 1rem;
   text-align: center;
+}
+
+#log {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+}
+
+#log li {
+  padding: 0.25em 0;
 }
