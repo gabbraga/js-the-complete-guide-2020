@@ -6,6 +6,7 @@ const HEAL_POINTS = 12;
 let maxHealthPoints = 100;
 let currentMonsterHealth = maxHealthPoints;
 let currentPlayerHealth = maxHealthPoints;
+let bonusLife = true;
 
 //set the progress bars to use the maximum health points chosen
 adjustHealthBars(maxHealthPoints);
@@ -18,6 +19,15 @@ healBtn.addEventListener('click', heal);
 logBtn.addEventListener('click', logMoves);
 
 //event handlers
+function attackHandler() { 
+    attack('attack');
+}
+
+function strongAttackHandler() {
+    attack('strongAttack');
+}
+
+
 function attack(attackMode) {
     let monsterDamagePoints;
     
@@ -34,30 +44,24 @@ function attack(attackMode) {
     }
 }
 
-function attackHandler() { 
-    attack('attack');
-}
-
-function strongAttackHandler() {
-    attack('strongAttack');
-}
-
 function heal() {
     increasePlayerHealth(HEAL_POINTS);
     currentPlayerHealth += HEAL_POINTS;
     if(currentPlayerHealth > maxHealthPoints) {
         currentPlayerHealth = maxHealthPoints;
     }
-    console.log('health: ' + currentPlayerHealth + ' Progress bar: ' + playerHealthBar.value);
     endRound();
 }
 
 function endRound() {
     const playerDamagePoints = dealPlayerDamage(MAX_MONSTER_ATTACK_POINTS);
     currentPlayerHealth -= playerDamagePoints;
-    console.log('health: ' + currentPlayerHealth + ' Progress bar: ' + playerHealthBar.value);
-    if (currentPlayerHealth <=0) {
+    if (currentPlayerHealth <=0 && !bonusLife) {
         alert('you lose!');
+    } else if (currentPlayerHealth <= 0 && bonusLife) {
+        bonusLife = false;
+        currentPlayerHealth = maxHealthPoints;
+        playerHealthBar.value = maxHealthPoints;
     }
 }
 
