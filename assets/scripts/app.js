@@ -37,13 +37,18 @@ function calc(operator) {
             newLog.operation = 'MULT';
             break;
         }
-        case '/': { 
-            currentResult /= userInput;
+        case '/': {
             newLog.operation = 'DIV';
+            if (userInput) {
+                currentResult /= userInput;
+                
+            } else {
+                newLog.desc = "Division by 0 not allowed"
+            }
             break;
         }
     }
-    outputResult(currentResult, calculationDescription);
+    outputResult(currentResult, newLog.desc);
     newLog.newResult = currentResult;
     logCalculation(newLog);
 }

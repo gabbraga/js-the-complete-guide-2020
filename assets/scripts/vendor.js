@@ -15,6 +15,11 @@ function outputResult(result, text) {
 
 function logHistory(log) {
   let logListItem = document.createElement('li');
-  logListItem.innerHTML = `${log.operation}:\t\t${log.desc} = ${log.newResult}`;
+  if(log.operation == "DIV" && !log.input){
+    logListItem.innerHTML = `${log.operation}:\t\t${log.desc}`;
+  } else {
+    logListItem.innerHTML = `${log.operation}:\t\t${log.desc} = ${log.newResult}`;
+  }
+  
   historyLog.appendChild(logListItem);
 }
