@@ -28,6 +28,9 @@ function dealPlayerDamage(damage) {
 
 function increasePlayerHealth(healValue) {
   playerHealthBar.value = +playerHealthBar.value + healValue;
+  if (playerHealthBar.value > maxHealthPoints) {
+    playerHealthBar.value = maxHealthPoints;
+  }
 }
 
 function resetGame(value) {
