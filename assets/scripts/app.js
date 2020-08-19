@@ -3,7 +3,15 @@ const MAX_STR_ATTACK_POINTS = 18;
 const MAX_MONSTER_ATTACK_POINTS = 14;
 const HEAL_POINTS = 12;
 
-let maxHealthPoints = 100;
+let maxHealthPoints;
+let userInput = parseInt(prompt('Choose the maximum health points to use: ', '100'));
+
+if(isNaN(userInput) || userInput <=0 ) {
+    maxHealthPoints = 100;
+} else {
+    maxHealthPoints = userInput;
+}
+
 let currentMonsterHealth = maxHealthPoints;
 let currentPlayerHealth = maxHealthPoints;
 let bonusLife = true;
