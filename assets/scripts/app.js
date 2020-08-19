@@ -1,5 +1,5 @@
 const MAX_ATTACK_POINTS= 10;
-const MAX_STR_ATTACK_POINTS = 20;
+const MAX_STR_ATTACK_POINTS = 18;
 const MAX_MONSTER_ATTACK_POINTS = 14;
 const MAX_HEAL_POINTS = 10;
 
@@ -33,8 +33,16 @@ function attack() {
 }
 
 function strongAttack() {
-    // dealMonsterDamage(MAX_STR_ATTACK_POINTS);
-    
+    const monsterDamagePoints = dealMonsterDamage(MAX_STR_ATTACK_POINTS);
+    currentMonsterHealth -= monsterDamagePoints;
+    if(currentMonsterHealth <= 0) {
+        alert('you win!');
+    }
+    const playerDamagePoints = dealPlayerDamage(MAX_MONSTER_ATTACK_POINTS);
+    currentPlayerHealth -= playerDamagePoints;
+    if (currentPlayerHealth <=0) {
+        alert('you lose!');
+    }
 }
 
 function heal() {
