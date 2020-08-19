@@ -1,4 +1,4 @@
-const MAX_ATTACK_POINTS= 10;
+const MAX_ATTACK_POINTS= 8;
 const MAX_STR_ATTACK_POINTS = 18;
 const MAX_MONSTER_ATTACK_POINTS = 14;
 const HEAL_POINTS = 12;
@@ -39,6 +39,7 @@ function attack(attackMode) {
     currentMonsterHealth -= monsterDamagePoints;
     if(currentMonsterHealth <= 0) {
         alert('you win!');
+        reset();
     } else {
         endRound();
     }
@@ -58,14 +59,24 @@ function endRound() {
     currentPlayerHealth -= playerDamagePoints;
     if (currentPlayerHealth <=0 && !bonusLife) {
         alert('you lose!');
+        reset();
     } else if (currentPlayerHealth <= 0 && bonusLife) {
         bonusLife = false;
-        removeBonusLife();
+        toggleBonusLife(false);
         currentPlayerHealth = maxHealthPoints;
         playerHealthBar.value = maxHealthPoints;
+        alert('b-b-b-BONUS life saved you!!');
     }
 }
 
 function logMoves() {
 
+}
+
+function reset() {
+    resetGame(maxHealthPoints);
+    currentPlayerHealth = maxHealthPoints;
+    currentMonsterHealth = maxHealthPoints;
+    bonusLife = true;
+    toggleBonusLife(true);
 }
