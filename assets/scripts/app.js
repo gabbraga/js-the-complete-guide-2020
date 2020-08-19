@@ -60,6 +60,7 @@ function endRound() {
         alert('you lose!');
     } else if (currentPlayerHealth <= 0 && bonusLife) {
         bonusLife = false;
+        removeBonusLife();
         currentPlayerHealth = maxHealthPoints;
         playerHealthBar.value = maxHealthPoints;
     }
