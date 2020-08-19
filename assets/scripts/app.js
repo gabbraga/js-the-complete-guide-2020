@@ -1,5 +1,6 @@
 const MAX_ATTACK_POINTS= 10;
 const MAX_STR_ATTACK_POINTS = 20;
+const MAX_MONSTER_ATTACK_POINTS = 14;
 const MAX_HEAL_POINTS = 10;
 
 let maxHealthPoints = 100;
@@ -18,8 +19,16 @@ logBtn.addEventListener('click', logMoves);
 
 //event handlers
 function attack() {
-    const damagePoints = dealMonsterDamage(MAX_ATTACK_POINTS);
-    currentMonsterHealth -= damagePoints;
+    const monsterDamagePoints = dealMonsterDamage(MAX_ATTACK_POINTS);
+    currentMonsterHealth -= monsterDamagePoints;
+    if(currentMonsterHealth <= 0) {
+        alert('you win!');
+    }
+    const playerDamagePoints = dealPlayerDamage(MAX_MONSTER_ATTACK_POINTS);
+    currentPlayerHealth -= playerDamagePoints;
+    if (currentPlayerHealth <=0) {
+        alert('you lose!');
+    }
     // logMoves(damagePoints);
 }
 
