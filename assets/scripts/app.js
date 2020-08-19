@@ -12,14 +12,20 @@ adjustHealthBars(maxHealthPoints);
 
 
 //add event listeners
-attackBtn.addEventListener('click', attack);
-strongAttackBtn.addEventListener('click', strongAttack);
+attackBtn.addEventListener('click', attackHandler);
+strongAttackBtn.addEventListener('click', strongAttackHandler);
 healBtn.addEventListener('click', heal);
 logBtn.addEventListener('click', logMoves);
 
 //event handlers
-function attack() {
-    const monsterDamagePoints = dealMonsterDamage(MAX_ATTACK_POINTS);
+function attack(attackMode) {
+    let monsterDamagePoints;
+    
+    if(attackMode === 'attack') {
+        monsterDamagePoints = dealMonsterDamage(MAX_ATTACK_POINTS);
+    } else if (attackMode === 'strongAttack') {
+        monsterDamagePoints = dealMonsterDamage(MAX_STR_ATTACK_POINTS);
+    }
     currentMonsterHealth -= monsterDamagePoints;
     if(currentMonsterHealth <= 0) {
         alert('you win!');
@@ -29,20 +35,14 @@ function attack() {
     if (currentPlayerHealth <=0) {
         alert('you lose!');
     }
-    // logMoves(damagePoints);
 }
 
-function strongAttack() {
-    const monsterDamagePoints = dealMonsterDamage(MAX_STR_ATTACK_POINTS);
-    currentMonsterHealth -= monsterDamagePoints;
-    if(currentMonsterHealth <= 0) {
-        alert('you win!');
-    }
-    const playerDamagePoints = dealPlayerDamage(MAX_MONSTER_ATTACK_POINTS);
-    currentPlayerHealth -= playerDamagePoints;
-    if (currentPlayerHealth <=0) {
-        alert('you lose!');
-    }
+function attackHandler() { 
+    attack('attack');
+}
+
+function strongAttackHandler() {
+    attack('strongAttack');
 }
 
 function heal() {
