@@ -2,6 +2,11 @@ const MAX_ATTACK_POINTS= 8;
 const MAX_STR_ATTACK_POINTS = 18;
 const MAX_MONSTER_ATTACK_POINTS = 14;
 const HEAL_POINTS = 12;
+const ATTACK = 'Attack';
+const STRONG_ATTACK = 'Strong Attack';;
+const MONSTER_ATTACK = 'Monster Attack';
+const PLAYER_HEAL = 'Heal Player';
+const GAME_OVER = 'Game Over';
 
 let maxHealthPoints;
 let userInput = parseInt(prompt('Choose the maximum health points to use: ', '100'));
@@ -16,6 +21,8 @@ let currentMonsterHealth = maxHealthPoints;
 let currentPlayerHealth = maxHealthPoints;
 let bonusLife = true;
 
+let battleLog = [];
+
 //set the progress bars to use the maximum health points chosen
 adjustHealthBars(maxHealthPoints);
 
@@ -24,27 +31,27 @@ adjustHealthBars(maxHealthPoints);
 attackBtn.addEventListener('click', attackHandler);
 strongAttackBtn.addEventListener('click', strongAttackHandler);
 healBtn.addEventListener('click', heal);
-logBtn.addEventListener('click', logMoves);
+logBtn.addEventListener('click', showLog);
 
 //event handlers
 function attackHandler() { 
-    attack('attack');
+    attack(ATTACK);
 }
 
 function strongAttackHandler() {
-    attack('strongAttack');
+    attack(STRONG_ATTACK);
 }
-
 
 function attack(attackMode) {
     let monsterDamagePoints;
     
-    if(attackMode === 'attack') {
+    if(attackMode === ATTACK) {
         monsterDamagePoints = dealMonsterDamage(MAX_ATTACK_POINTS);
-    } else if (attackMode === 'strongAttack') {
+    } else if (attackMode === STRONG_ATTACK) {
         monsterDamagePoints = dealMonsterDamage(MAX_STR_ATTACK_POINTS);
     }
     currentMonsterHealth -= monsterDamagePoints;
+    logMove(attackMode, monsterDamagePoints, currentMonsterHealth, currentPlayerHealth);
     if(currentMonsterHealth <= 0) {
         alert('you win!');
         reset();
@@ -59,12 +66,14 @@ function heal() {
     if(currentPlayerHealth > maxHealthPoints) {
         currentPlayerHealth = maxHealthPoints;
     }
+    logMove(PLAYER_HEAL, HEAL_POINTS, currentMonsterHealth, currentPlayerHealth);
     endRound();
 }
 
 function endRound() {
     const playerDamagePoints = dealPlayerDamage(MAX_MONSTER_ATTACK_POINTS);
     currentPlayerHealth -= playerDamagePoints;
+    logMove(MONSTER_ATTACK, playerDamagePoints, currentMonsterHealth, currentPlayerHealth);
     if (currentPlayerHealth <=0 && !bonusLife) {
         alert('you lose!');
         reset();
@@ -77,8 +86,27 @@ function endRound() {
     }
 }
 
-function logMoves() {
+function logMove(eventType, value, monsterHealth, playerHealth) {
+    let logEntry = {
+        event: eventType,
+        value: value,
+        monsterHealth: monsterHealth,
+        playerHealth: playerHealth
+    }
+    battleLog.push(logEntry);
+}
 
+function showLog() {
+    for(let i=0; i < battleLog.length; i++) {
+        if(battleLog[i].event === ATTACK || battleLog[i].event === STRONG_ATTACK) {
+            console.log(`You attacked the monster and it took - ${battleLog[i].value} - damage points! :D\nYou: ${battleLog[i].playerHealth} Monster: ${battleLog[i].monsterHealth}`);
+        } else if(battleLog[i].event === MONSTER_ATTACK) {
+            console.log(`The monster attacked you and you took - ${battleLog[i].value} - damage points! >:(\nYou: ${battleLog[i].playerHealth} Monster: ${battleLog[i].monsterHealth}`);
+        }
+        else if(battleLog[i].event === PLAYER_HEAL) {
+            console.log(`You healed yourself and gained - ${battleLog[i].value} - health points! <3\nYou: ${battleLog[i].playerHealth} Monster: ${battleLog[i].monsterHealth}`);
+        }
+    }
 }
 
 function reset() {
