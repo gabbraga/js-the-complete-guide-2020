@@ -97,14 +97,14 @@ function logMove(eventType, value, monsterHealth, playerHealth) {
 }
 
 function showLog() {
-    for(let i=0; i < battleLog.length; i++) {
-        if(battleLog[i].event === ATTACK || battleLog[i].event === STRONG_ATTACK) {
-            console.log(`You attacked the monster and it took - ${battleLog[i].value} - damage points! :D\nYou: ${battleLog[i].playerHealth} Monster: ${battleLog[i].monsterHealth}`);
-        } else if(battleLog[i].event === MONSTER_ATTACK) {
-            console.log(`The monster attacked you and you took - ${battleLog[i].value} - damage points! >:(\nYou: ${battleLog[i].playerHealth} Monster: ${battleLog[i].monsterHealth}`);
+    for(const log of battleLog) {
+        if(log.event === ATTACK || log.event === STRONG_ATTACK) {
+            console.log(`You attacked the monster and it took - ${log.value} - damage points! :D\nYou: ${log.playerHealth} Monster: ${log.monsterHealth}`);
+        } else if(log.event === MONSTER_ATTACK) {
+            console.log(`The monster attacked you and you took - ${log.value} - damage points! >:(\nYou: ${log.playerHealth} Monster: ${log.monsterHealth}`);
         }
-        else if(battleLog[i].event === PLAYER_HEAL) {
-            console.log(`You healed yourself and gained - ${battleLog[i].value} - health points! <3\nYou: ${battleLog[i].playerHealth} Monster: ${battleLog[i].monsterHealth}`);
+        else if(log.event === PLAYER_HEAL) {
+            console.log(`You healed yourself and gained - ${log.value} - health points! <3\nYou: ${log.playerHealth} Monster: ${log.monsterHealth}`);
         }
     }
 }
