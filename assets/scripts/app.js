@@ -9,13 +9,25 @@ const PLAYER_HEAL = 'Heal Player';
 const GAME_OVER = 'Game Over';
 
 let maxHealthPoints;
-let userInput = parseInt(prompt('Choose the maximum health points to use: ', '100'));
 
-if(isNaN(userInput) || userInput <=0 ) {
-    maxHealthPoints = 100;
-} else {
-    maxHealthPoints = userInput;
+function getMaxLifeValues() {
+    const userInput = parseInt(prompt('Choose the maximum health points to use: ', '100'));
+    if(isNaN(userInput) || userInput <=0 ) {
+        throw { message: 'user input not a valid value'};
+    }
+    return userInput;
 }
+
+try {
+    maxHealthPoints = getMaxLifeValues();
+} catch (error) {
+    //this code will only execute if the try code throws an error
+    console.log(`Error caught: ${error.message}\nFallback to 100 health points`);
+    maxHealthPoints = 100;
+} /*finally {
+    this code will always execute whether the try threw an error or not
+    in case you need any cleanup regarding the error handling
+}*/
 
 let currentMonsterHealth = maxHealthPoints;
 let currentPlayerHealth = maxHealthPoints;
