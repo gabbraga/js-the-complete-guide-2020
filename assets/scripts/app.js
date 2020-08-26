@@ -53,19 +53,14 @@ function calc(operator) {
     logCalculation(newLog);
 }
 
-function add() { calc('+'); }
-function sub() { calc('-'); }
-function mult() { calc('*');}
-function div() { calc('/'); }
-
 function logCalculation(log){
     calculationLogs.push(log);
     logHistory(log);
 }
 
-addBtn.addEventListener('click', add);
-subtractBtn.addEventListener('click', sub);
-multiplyBtn.addEventListener('click', mult);
-divideBtn.addEventListener('click', div);
+addBtn.addEventListener('click', calc.bind(this, '+'));
+subtractBtn.addEventListener('click', calc.bind(this, '-'));
+multiplyBtn.addEventListener('click', calc.bind(this, '*'));
+divideBtn.addEventListener('click', calc.bind(this, '/'));
 
  
