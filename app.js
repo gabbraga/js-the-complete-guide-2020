@@ -5,7 +5,7 @@ const SCISSORS = 'scissors'
 let gameIsRunning = false;
 
 
-const getPlayerChoice = function() {
+const getPlayerChoice = () => {
     const userChoice = prompt(`${ROCK}, ${PAPER}, or ${SCISSORS}?`, '').toLowerCase();
     //if the user doesnt choose rock, paper, or scissor, return rock by default
     if (userChoice !== ROCK && userChoice !== PAPER && userChoice !== SCISSORS) {
@@ -15,7 +15,7 @@ const getPlayerChoice = function() {
     return userChoice;
 }
 
-const getComputerChoice = function() {
+const getComputerChoice = () => {
     const randomValue = Math.random();
     if(randomValue < 0.34) {
         return ROCK;
@@ -26,7 +26,7 @@ const getComputerChoice = function() {
     }
 }
 
-const getWinner = function(comp, player) {
+const getWinner = (comp, player) => {
     console.log(`You: ${player} Comp: ${comp}\n`);
     if(comp === player) {
         console.log(`It's a tie!`);
@@ -42,7 +42,7 @@ const getWinner = function(comp, player) {
     gameIsRunning = false;
 }
 
-startGameBtn.addEventListener('click', function() {
+startGameBtn.addEventListener('click', () => {
     if(gameIsRunning) {
         return;
     }
