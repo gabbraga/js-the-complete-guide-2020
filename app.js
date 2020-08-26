@@ -17,7 +17,6 @@ const getPlayerChoice = function() {
 
 const getComputerChoice = function() {
     const randomValue = Math.random();
-    console.log(randomValue);
     if(randomValue < 0.34) {
         return ROCK;
     }else if (randomValue < 0.67) {
@@ -25,6 +24,22 @@ const getComputerChoice = function() {
     }else {
         return SCISSORS;
     }
+}
+
+const getWinner = function(comp, player) {
+    console.log(`You: ${player} Comp: ${comp}\n`);
+    if(comp === player) {
+        console.log(`It's a tie!`);
+    } else if (
+        comp === ROCK && player === PAPER ||
+        comp === PAPER && player === SCISSORS ||
+        comp == SCISSORS && player === ROCK
+    ) {
+        console.log('You win! Blastastic!');
+    } else {
+        console.log('You lose! Womp womp wommmpp...');
+    }
+    gameIsRunning = false;
 }
 
 startGameBtn.addEventListener('click', function() {
@@ -35,5 +50,5 @@ startGameBtn.addEventListener('click', function() {
     console.log('Game is starting...');
     const playerSelection = getPlayerChoice();
     const computerSelection = getComputerChoice();
-    console.log(computerSelection);
+    getWinner(computerSelection, playerSelection);
 });
