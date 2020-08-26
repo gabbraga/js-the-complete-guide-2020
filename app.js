@@ -10,7 +10,7 @@ const getPlayerChoice = () => {
     //if the user doesnt choose rock, paper, or scissor, return rock by default
     if (userChoice !== ROCK && userChoice !== PAPER && userChoice !== SCISSORS) {
         alert(`Invalid option. You have been given ${ROCK} instead!`);
-        return ROCK;
+        return;
     }
     return userChoice;
 }
@@ -26,7 +26,8 @@ const getComputerChoice = () => {
     }
 }
 
-const getWinner = (comp, player) => {
+//use a default argument if player selection is undefined
+const getWinner = (comp, player=ROCK) => {
     console.log(`You: ${player} Comp: ${comp}\n`);
     if(comp === player) {
         console.log(`It's a tie!`);
