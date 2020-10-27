@@ -1,6 +1,21 @@
 const addMovieDetailsBtn = document.getElementById("add-Movie");
-const addMovieModal = document.getElementById('add-modal');
+const addMovieModalDiv = document.getElementById('add-modal');
+const cancelAddMovieBtn = addMovieModalDiv.querySelector('.btn--passive');
+const backdropDiv = document.getElementById('backdrop');
 
-addMovieDetailsBtn.addEventListener('click', () => {
-    addMovieModal.classList.toggle('visible');
-});
+const toggleBackdrop = () => {
+    backdropDiv.classList.toggle('visible');
+};
+
+const toggleMovieModal = () => {
+    addMovieModalDiv.classList.toggle('visible');
+    toggleBackdrop();
+};
+
+const backdropClickHandler = () => {
+    toggleMovieModal();
+};
+
+addMovieDetailsBtn.addEventListener('click', toggleMovieModal);
+backdropDiv.addEventListener('click', backdropClickHandler);
+cancelAddMovieBtn.addEventListener('click', toggleMovieModal);
