@@ -4,7 +4,7 @@ const cancelAddMovieDetailsBtn = addMovieModalDiv.querySelector('.btn--passive')
 const addMovieBtn = addMovieModalDiv.querySelector('.btn--success');
 const backdropDiv = document.getElementById('backdrop');
 const inputList = document.querySelector('.modal__content').querySelectorAll('input');
-
+const movies = [];
 
 const toggleBackdrop = () => {
     backdropDiv.classList.toggle('visible');
@@ -33,10 +33,18 @@ const validateMovieDetails = () => {
     ) {
         alert('please enter valid values');
     } else {
+        addMovie(titleValue, imageURL, ratingValue);
         toggleMovieModal();
-        return;
     }
+    console.log(movies);
+};
 
+function addMovie(titleValue, imageURL, ratingValue) {
+    movies.push({
+        title: titleValue,
+        url: imageURL,
+        rating: ratingValue
+    });
 };
 
 addMovieDetailsBtn.addEventListener('click', toggleMovieModal);
