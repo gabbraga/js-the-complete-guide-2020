@@ -33,19 +33,25 @@ const validateMovieDetails = () => {
     ) {
         alert('please enter valid values');
     } else {
-        addMovie(titleValue, imageURL, ratingValue);
+        //addMovie(titleValue, imageURL, ratingValue);
+        movies.push({
+            title: titleValue,
+            url: imageURL,
+            rating: ratingValue
+        });
         toggleMovieModal();
     }
-    console.log(movies);
 };
 
-function addMovie(titleValue, imageURL, ratingValue) {
+//if you need to add movies from somewhere else do it like this,
+//but if not just add the movie in the validate function
+/* function addMovie(titleValue, imageURL, ratingValue) {
     movies.push({
         title: titleValue,
         url: imageURL,
         rating: ratingValue
     });
-};
+}; */
 
 addMovieDetailsBtn.addEventListener('click', toggleMovieModal);
 backdropDiv.addEventListener('click', backdropClickHandler);
