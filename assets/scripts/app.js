@@ -19,6 +19,17 @@ const backdropClickHandler = () => {
     toggleMovieModal();
 };
 
+const cancelClickHandler = () => {
+    toggleMovieModal();
+    clearMovieDetails();
+};
+
+const clearMovieDetails = () => {
+    for(const input of inputList) {
+        input.value = '';
+    }
+};
+
 const validateMovieDetails = () => {
     const titleValue = inputList[0].value;
     const imageURL = inputList[1].value;
@@ -39,8 +50,10 @@ const validateMovieDetails = () => {
             url: imageURL,
             rating: ratingValue
         });
+        clearMovieDetails();
         toggleMovieModal();
     }
+    console.log(movies);
 };
 
 //if you need to add movies from somewhere else do it like this,
@@ -55,5 +68,5 @@ const validateMovieDetails = () => {
 
 addMovieDetailsBtn.addEventListener('click', toggleMovieModal);
 backdropDiv.addEventListener('click', backdropClickHandler);
-cancelAddMovieDetailsBtn.addEventListener('click', toggleMovieModal);
+cancelAddMovieDetailsBtn.addEventListener('click', cancelClickHandler);
 addMovieBtn.addEventListener('click', validateMovieDetails);
