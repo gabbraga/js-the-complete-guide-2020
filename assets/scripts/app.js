@@ -8,6 +8,7 @@ const addMovieBtn = addMovieModalDiv.querySelector('.btn--success');
 const backdropDiv = document.getElementById('backdrop');
 const inputList = document.querySelector('.modal__content').querySelectorAll('input');
 const entryTextSection = document.getElementById('entry-text');
+const movieListUl = document.getElementById('movie-list');
 
 const movies = [];
 
@@ -69,7 +70,6 @@ const updateUI = () => {
 }
 
 const renderNewMovieElement = (movie) => {
-    const movieListUl = document.getElementById('movie-list');
     const newMovieElement = document.createElement('li');
     newMovieElement.className = 'movie-element';
     newMovieElement.innerHTML = `
@@ -81,6 +81,18 @@ const renderNewMovieElement = (movie) => {
         <p>${movie.rating}/5 stars</h3>
        </div>
     `;
+    newMovieElement.addEventListener('click', () => {
+        movieListUl.removeChild(newMovieElement);
+        // looping through this array is not a scalable solution;
+        // if you had a lot of elements in this array this would take
+        // forever. Better than Max's solution though
+        for (let i=0; i < movies.length; i++) {
+            if(movies[i] === movie) {
+                movies.splice(i, 1);
+            }
+        }
+        console.log(movies);
+    });
     movieListUl.appendChild(newMovieElement);
 };
 
