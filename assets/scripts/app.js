@@ -1,9 +1,14 @@
+/*
+    Select DOM elements
+*/
 const addMovieDetailsBtn = document.getElementById("add-Movie");
 const addMovieModalDiv = document.getElementById('add-modal');
 const cancelAddMovieDetailsBtn = addMovieModalDiv.querySelector('.btn--passive');
 const addMovieBtn = addMovieModalDiv.querySelector('.btn--success');
 const backdropDiv = document.getElementById('backdrop');
 const inputList = document.querySelector('.modal__content').querySelectorAll('input');
+const entryTextSection = document.getElementById('entry-text');
+
 const movies = [];
 
 const toggleBackdrop = () => {
@@ -31,29 +36,52 @@ const clearMovieDetails = () => {
 };
 
 const addMovie = () => {
-    const titleValue = inputList[0].value;
-    const imageURL = inputList[1].value;
-    const ratingValue = inputList[2].value;
-
+    const movie = {
+        title: inputList[0].value,
+        url: inputList[1].value,
+        rating: inputList[2].value
+    } 
     //validate movie details input
     if(
-        !titleValue.trim() || 
-        !imageURL.trim() || 
-        !ratingValue.trim() ||
-        +ratingValue < 1 ||
-        +ratingValue > 5
+        !movie.title.trim() || 
+        !movie.url.trim() || 
+        !movie.rating.trim() ||
+        +movie.rating < 1 ||
+        +movie.rating > 5
     ) {
         alert('please enter valid values');
     } else {
-        movies.push({
-            title: titleValue,
-            url: imageURL,
-            rating: ratingValue
-        });
-        clearMovieDetails();
+        movies.push(movie);
+        updateUI();
         toggleMovieModal();
+        clearMovieDetails();
+        renderNewMovieElement(movie);
     }
     console.log(movies);
+};
+
+const updateUI = () => {
+    if(movies.length === 0) {
+        entryTextSection.style.display = 'block';
+    } else {
+        entryTextSection.style.display = 'none';
+    }
+}
+
+const renderNewMovieElement = (movie) => {
+    const movieListUl = document.getElementById('movie-list');
+    const newMovieElement = document.createElement('li');
+    newMovieElement.className = 'movie-element';
+    newMovieElement.innerHTML = `
+       <div class="movie-element__image">
+        <img src=${movie.url} alt="${movie.title}">
+       </div> 
+       <div class="movie-element__info">
+        <h2>${movie.title}</h2>
+        <p>${movie.rating}/5 stars</h3>
+       </div>
+    `;
+    movieListUl.appendChild(newMovieElement);
 };
 
 addMovieDetailsBtn.addEventListener('click', toggleMovieModal);
