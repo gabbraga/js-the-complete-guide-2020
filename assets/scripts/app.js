@@ -81,19 +81,25 @@ const renderNewMovieElement = (movie) => {
         <p>${movie.rating}/5 stars</h3>
        </div>
     `;
-    newMovieElement.addEventListener('click', () => {
+    
+    movieListUl.appendChild(newMovieElement);
+    
+    //to delete the movie when clicked
+    newMovieElement.addEventListener('click', () => { 
+        /* 
+            important to note: when this element is removed from the DOM, 
+            the event listener is now just out in the void, however it does 
+            NOT create a memory leak. If you delete an object from the DOM,
+            as long as you do not have any references to it elsewhere in your
+            code, the browser will automatically clear everything that is related
+            to that DOM object, including any event listeners. 
+        */
         movieListUl.removeChild(newMovieElement);
-        // looping through this array is not a scalable solution;
-        // if you had a lot of elements in this array this would take
-        // forever. Better than Max's solution though
-        for (let i=0; i < movies.length; i++) {
-            if(movies[i] === movie) {
-                movies.splice(i, 1);
-            }
-        }
+        movies.splice(movies.indexOf(movie), 1);
+
         console.log(movies);
     });
-    movieListUl.appendChild(newMovieElement);
+   
 };
 
 addMovieDetailsBtn.addEventListener('click', toggleMovieModal);
