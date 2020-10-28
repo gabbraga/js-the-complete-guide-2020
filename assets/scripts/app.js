@@ -30,11 +30,12 @@ const clearMovieDetails = () => {
     }
 };
 
-const validateMovieDetails = () => {
+const addMovie = () => {
     const titleValue = inputList[0].value;
     const imageURL = inputList[1].value;
     const ratingValue = inputList[2].value;
 
+    //validate movie details input
     if(
         !titleValue.trim() || 
         !imageURL.trim() || 
@@ -44,7 +45,6 @@ const validateMovieDetails = () => {
     ) {
         alert('please enter valid values');
     } else {
-        //addMovie(titleValue, imageURL, ratingValue);
         movies.push({
             title: titleValue,
             url: imageURL,
@@ -56,17 +56,7 @@ const validateMovieDetails = () => {
     console.log(movies);
 };
 
-//if you need to add movies from somewhere else do it like this,
-//but if not just add the movie in the validate function
-/* function addMovie(titleValue, imageURL, ratingValue) {
-    movies.push({
-        title: titleValue,
-        url: imageURL,
-        rating: ratingValue
-    });
-}; */
-
 addMovieDetailsBtn.addEventListener('click', toggleMovieModal);
 backdropDiv.addEventListener('click', backdropClickHandler);
 cancelAddMovieDetailsBtn.addEventListener('click', cancelClickHandler);
-addMovieBtn.addEventListener('click', validateMovieDetails);
+addMovieBtn.addEventListener('click', addMovie);
