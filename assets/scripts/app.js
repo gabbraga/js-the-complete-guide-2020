@@ -3,24 +3,28 @@ class Product {
     imageUrl;
     price;
     description;
+
+    constructor(title, url, desc, price) {
+        this.title = title;
+        this.imageUrl = url;
+        this.description = desc;
+        this.price = price;
+    }
 }
 
 const productList = {
     products: [
-        {
-            title: 'A Pillow',
-            imageUrl: 'https://images.crateandbarrel.com/is/image/Crate/Emi20x20PlwCvrSHS20/?$web_zoom$&191122123350&wid=450&hei=450',
-            price: 19.99,
-            description: 'A soft pillow!'
-        },
-     
-        {
-         title: 'A Carpet',
-         imageUrl: 'https://www.carpetandhome.com/wp-content/uploads/2020/05/1-3.jpg',
-         price: 199.99,
-         description: 'A soft carpet!'
-         }
-      ],
+        new Product(
+            'A Pillow',
+            'https://images.crateandbarrel.com/is/image/Crate/Emi20x20PlwCvrSHS20/?$web_zoom$&191122123350&wid=450&hei=450',
+            'A soft pillow!',
+            19.99),
+        new Product(
+                'A Carpet',
+                'https://www.carpetandhome.com/wp-content/uploads/2020/05/1-3.jpg',
+                'A soft carpet!',
+                199.99)
+    ],
       render() {
           const appDiv = document.getElementById('app');
           const productUl = document.createElement('ul');
