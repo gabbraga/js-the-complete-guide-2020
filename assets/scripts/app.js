@@ -9,15 +9,33 @@ const productList = {
      
         {
          title: 'A Carpet',
-         imageUrl: 'https://images.crateandbarrel.com/is/image/Crate/Emi20x20PlwCvrSHS20/?$web_zoom$&191122123350&wid=450&hei=450',
+         imageUrl: 'https://www.carpetandhome.com/wp-content/uploads/2020/05/1-3.jpg',
          price: 199.99,
          description: 'A soft carpet!'
          }
       ],
       render() {
-          const renderHook = document.getElementById('app');
-          const prodList = document.createElement('ul');
-          prodList.className = 'product-list';
-          renderHook.append(prodList);
+          const appDiv = document.getElementById('app');
+          const productUl = document.createElement('ul');
+          productUl.className = 'product-list';
+          for (const product of this.products) {
+            const productLi = document.createElement('li');
+            productLi.className = 'product-item';
+            productLi.innerHTML = `
+            <div>
+                <img src="${product.imageUrl}" alt="${product.title}">
+                <div class="product-item__content">
+                    <h2>${product.title}</h2>
+                    <h3>\$${product.price}</h3>
+                    <p>${product.description}</p>
+                    <button>Add to Cart</button>
+                </div>
+            </div>
+            `;
+            productUl.append(productLi);
+          }
+          appDiv.append(productUl);
       }
  };
+
+productList.render();
