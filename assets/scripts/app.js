@@ -1,3 +1,10 @@
+class Product {
+    title = 'Default Title';
+    imageUrl;
+    price;
+    description;
+}
+
 const productList = {
     products: [
         {
