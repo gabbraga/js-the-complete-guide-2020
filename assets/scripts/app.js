@@ -18,7 +18,7 @@ class ProductElement {
     constructor(product) {
         this.product = product;
     }
-    render() {
+    getProductLiElement() {
         const productLi = document.createElement('li');
         productLi.className = 'product-item';
         productLi.innerHTML = `
@@ -54,17 +54,39 @@ class ProductList {
             'A soft carpet!',
             199.99)
         ];
-        render() {
-            const appDiv = document.getElementById('app');
+        getProductListUlElement() {
             const productUl = document.createElement('ul');
             productUl.className = 'product-list';
             for (const product of this.products) {
-              const prodEl = new ProductElement(product).render();
+              const prodEl = new ProductElement(product).getProductLiElement();
               productUl.append(prodEl);
             }
-            appDiv.append(productUl);
+            return productUl;
         }    
 }
 
-const prodList = new ProductList();
-prodList.render();
+class CartElement {
+    productsInCart = [];
+
+    getCartSectionElement() {
+        const cartEl = document.createElement('section');
+        cartEl.innerHTML = `
+            <h2>Total: \$${0}</h2>
+            <button>Order Now</button>
+        `;
+        cartEl.className = 'cart';
+        return cartEl;
+    }
+
+}
+
+class Shop {
+    renderShop() {
+        const appDiv = document.getElementById('app');
+        appDiv.append(new CartElement().getCartSectionElement());
+        appDiv.append(new ProductList().getProductListUlElement());
+    }
+}
+
+new Shop().renderShop();
+
