@@ -26,7 +26,7 @@ class ProductElement {
             <img src="${this.product.imageUrl}" alt="${this.product.title}">
             <div class="product-item__content">
                 <h2>${this.product.title}</h2>
-                <h3>\$${this.product.price}</h3>
+                <h3>\$${this.product.price.toFixed(2)}</h3>
                 <p>${this.product.description}</p>
                 <button>Add to Cart</button>
             </div>
@@ -37,7 +37,7 @@ class ProductElement {
         return productLi;
     }
     addToCart() {
-        console.log(`Added ${this.product.title} to the cart!`);
+        Shop.addToCart(this.product);
     }
 }
 
@@ -47,12 +47,12 @@ class ProductList {
             'A Pillow',
             'https://images.crateandbarrel.com/is/image/Crate/Emi20x20PlwCvrSHS20/?$web_zoom$&191122123350&wid=450&hei=450',
             'A soft pillow!',
-            19.99),
+            19.50),
         new Product(
             'A Carpet',
             'https://www.carpetandhome.com/wp-content/uploads/2020/05/1-3.jpg',
             'A soft carpet!',
-            199.99)
+            199.50)
         ];
         getProductListUlElement() {
             const productUl = document.createElement('ul');
@@ -67,26 +67,42 @@ class ProductList {
 
 class CartElement {
     productsInCart = [];
+    totalOutput = 0;
+    totalOutputEl = document.createElement('h2');
+    orderBtn = document.createElement('button');
+
+    addProductToCart (product){
+        this.productsInCart.push(product);
+        console.log(`Added ${product.title} to the cart!`);
+        this.totalOutput = this.totalOutput + product.price;
+        this.totalOutputEl.innerHTML = `<h2>Total: \$${this.totalOutput.toFixed(2)}</h2>`;
+    }
 
     getCartSectionElement() {
         const cartEl = document.createElement('section');
-        cartEl.innerHTML = `
-            <h2>Total: \$${0}</h2>
-            <button>Order Now</button>
-        `;
+        this.totalOutputEl.innerHTML = `<h2>Total: \$${this.totalOutput}</h2>`;
+        this.orderBtn.innerHTML = `<button>Order Now</button>`;
+        cartEl.append(this.totalOutputEl);
+        cartEl.append(this.orderBtn);
         cartEl.className = 'cart';
         return cartEl;
     }
-
 }
 
 class Shop {
-    renderShop() {
+    cart;
+
+    static init() {
         const appDiv = document.getElementById('app');
-        appDiv.append(new CartElement().getCartSectionElement());
+        this.cart = new CartElement();
+        appDiv.append(this.cart.getCartSectionElement());
         appDiv.append(new ProductList().getProductListUlElement());
+    }    
+
+    static addToCart(product) {
+        this.cart.addProductToCart(product);
     }
 }
 
-new Shop().renderShop();
+Shop.init();
 
