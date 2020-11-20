@@ -37,7 +37,7 @@ class ProductElement {
         return productLi;
     }
     addToCart() {
-        Shop.addToCart(this.product);
+        Shop.cart.addProductToCart(this.product);
     }
 }
 
@@ -90,17 +90,11 @@ class CartElement {
 }
 
 class Shop {
-    cart;
-
     static init() {
         const appDiv = document.getElementById('app');
         this.cart = new CartElement();
         appDiv.append(this.cart.getCartSectionElement());
         appDiv.append(new ProductList().getProductListUlElement());
-    }    
-
-    static addToCart(product) {
-        this.cart.addProductToCart(product);
     }
 }
 
