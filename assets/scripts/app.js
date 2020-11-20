@@ -71,10 +71,15 @@ class CartElement {
     totalOutputEl = document.createElement('h2');
     orderBtn = document.createElement('button');
 
+    get totalAmount() {
+        const sum = this.productsInCart.reduce((prev, curr) => prev + curr.price, 0);
+        return sum;
+    }
+
     addProductToCart (product){
         this.productsInCart.push(product);
         console.log(`Added ${product.title} to the cart!`);
-        this.totalOutput = this.totalOutput + product.price;
+        this.totalOutput = this.totalAmount;
         this.totalOutputEl.innerHTML = `<h2>Total: \$${this.totalOutput.toFixed(2)}</h2>`;
     }
 
