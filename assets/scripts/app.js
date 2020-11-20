@@ -14,6 +14,28 @@ class Product {
         this.price = price;
     }
 }
+class ProductElement {
+    constructor(product) {
+        this.product = product;
+    }
+    render() {
+        const productLi = document.createElement('li');
+        productLi.className = 'product-item';
+        productLi.innerHTML = `
+        <div>
+            <img src="${this.product.imageUrl}" alt="${this.product.title}">
+            <div class="product-item__content">
+                <h2>${this.product.title}</h2>
+                <h3>\$${this.product.price}</h3>
+                <p>${this.product.description}</p>
+                <button>Add to Cart</button>
+            </div>
+        </div>
+        `;
+        return productLi;
+    }
+}
+
 class ProductList {
     products = [
         new Product(
@@ -32,20 +54,8 @@ class ProductList {
             const productUl = document.createElement('ul');
             productUl.className = 'product-list';
             for (const product of this.products) {
-              const productLi = document.createElement('li');
-              productLi.className = 'product-item';
-              productLi.innerHTML = `
-              <div>
-                  <img src="${product.imageUrl}" alt="${product.title}">
-                  <div class="product-item__content">
-                      <h2>${product.title}</h2>
-                      <h3>\$${product.price}</h3>
-                      <p>${product.description}</p>
-                      <button>Add to Cart</button>
-                  </div>
-              </div>
-              `;
-              productUl.append(productLi);
+              const prodEl = new ProductElement(product).render();
+              productUl.append(prodEl);
             }
             appDiv.append(productUl);
         }    
