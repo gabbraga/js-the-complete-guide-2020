@@ -32,7 +32,12 @@ class ProductElement {
             </div>
         </div>
         `;
+        const addToCartBtn = productLi.querySelector('button');
+        addToCartBtn.addEventListener('click', this.addToCart.bind(this));
         return productLi;
+    }
+    addToCart() {
+        console.log(`Added ${this.product.title} to the cart!`);
     }
 }
 
