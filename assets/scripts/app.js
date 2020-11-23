@@ -85,8 +85,8 @@ class CartElement {
 
     getCartSectionElement() {
         const cartEl = document.createElement('section');
-        this.totalOutputEl.innerHTML = `<h2>Total: \$${this.totalOutput}</h2>`;
-        this.orderBtn.innerHTML = `<button>Order Now</button>`;
+        this.totalOutputEl.innerHTML = `Total: \$${this.totalOutput}`;
+        this.orderBtn.innerHTML = `Order Now`;
         cartEl.append(this.totalOutputEl);
         cartEl.append(this.orderBtn);
         cartEl.className = 'cart';
