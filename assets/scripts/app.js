@@ -80,7 +80,7 @@ class CartElement {
         this.productsInCart.push(product);
         console.log(`Added ${product.title} to the cart!`);
         this.totalOutput = this.totalAmount;
-        this.totalOutputEl.innerHTML = `<h2>Total: \$${this.totalOutput.toFixed(2)}</h2>`;
+        this.totalOutputEl.innerHTML = `Total: \$${this.totalOutput.toFixed(2)}`;
     }
 
     getCartSectionElement() {
