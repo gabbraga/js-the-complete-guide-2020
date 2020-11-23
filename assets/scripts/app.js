@@ -87,17 +87,23 @@ class CartElement {
         const cartEl = document.createElement('section');
         this.totalOutputEl.innerHTML = `Total: \$${this.totalOutput}`;
         this.orderBtn.innerHTML = `Order Now`;
+        this.orderBtn.addEventListener('click', () => { this.orderProducts()})
         cartEl.append(this.totalOutputEl);
         cartEl.append(this.orderBtn);
         cartEl.className = 'cart';
         return cartEl;
     }
+
+    orderProducts() {
+        let products = this.productsInCart.map(product => product.title).join(', ');
+        console.log(`Ordering the following products: ${products}`);
+    }
 }
 
 class Shop {
     static init() {
-        const appDiv = document.getElementById('app');
         this.cart = new CartElement();
+        const appDiv = document.getElementById('app');
         appDiv.append(this.cart.getCartSectionElement());
         appDiv.append(new ProductList().getProductListUlElement());
     }
