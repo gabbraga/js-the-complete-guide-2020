@@ -11,10 +11,35 @@ class DOMHelper {
     }
 }
 
-class ToolTip {
+class Component {
+    
+    constructor(hostElementId, insertBefore = false) {
+        if(hostElementId) {
+            this.hostElement = document.getElementById(hostElementId);
+        } else {
+            this.hostElement = document.body;
+        }
+        this.insertBefore = insertBefore;
+    }
+    
+    detach() { 
+        this.element.remove(); 
+    }
+   
+    attach() { 
+        this.hostElement.insertAdjacentElement(
+            this.insertBefore ? 'beforebegin' : 'beforeend',
+            this.element
+        ); 
+    }
+}
 
-    constructor(closeNotifierFunction) {
+class ToolTip extends Component {
+
+    constructor(id, closeNotifierFunction) {
+        super(id, true);
         this.closeNotifier = closeNotifierFunction;
+        this.create();
     }
 
     closeToolTip = () => {
@@ -22,18 +47,15 @@ class ToolTip {
         this.closeNotifier();
     }
     
-    detach() {
-        this.element.remove();
-    }
-
-    attach() {
+    create() {
         const tooltipDiv = document.createElement('div');
         tooltipDiv.className = 'card';
         tooltipDiv.textContent = 'dummy';
         tooltipDiv.addEventListener('click', this.closeToolTip);
         this.element = tooltipDiv;
-        document.body.append(tooltipDiv);
     }
+    
+   
 }
 
 class ProjectItem {
@@ -54,7 +76,8 @@ class ProjectItem {
 
     showMoreInfoHandler() {
         if(!this.hasActiveToolTip) {
-            const tooltip = new ToolTip(() => {
+            //here 'this' in 'this.id' is refering to the moreInfoBtn so it's perfect to send the id
+            const tooltip = new ToolTip(this.id, () => {
                 this.hasActiveToolTip = false;
             });
             tooltip.attach();
