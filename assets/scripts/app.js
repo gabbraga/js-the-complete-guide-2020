@@ -167,7 +167,17 @@ class App {
     finishedProjectsList.setSwitchHandlerFunction(
       activeProjectsList.addProject.bind(activeProjectsList)
     );
-    document.getElementById("start-analytics-btn").addEventListener('click', this.startAnalytics);
+
+    const timerId = setTimeout(() => {
+      this.startAnalytics();
+    }, 3000);
+
+    document.getElementById("stop-analytics-btn").addEventListener('click', () => {
+      clearTimeout(timerId);
+      console.log("Analytics stopped.");
+    });
+    
+    
   }
 
   static startAnalytics() {
